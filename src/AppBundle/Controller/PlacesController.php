@@ -51,9 +51,8 @@ class PlacesController extends FOSRestController
      */
     public function deleteUsersPlacesAction($userId, $placeId)
     {
-        $user = $this->getDoctrine()->getRepository(User::class)->findOneById($userId);
         $place = $this->getDoctrine()->getRepository(Place::class)->findOneBy([
-            'user' => $user,
+            'user' => $this->getUser(),
             'id' => $placeId,
         ]);
 

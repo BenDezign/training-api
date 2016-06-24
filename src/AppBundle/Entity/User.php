@@ -107,6 +107,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function getRoles()
     {
+        return ['ROLE_USER'];
     }
 
     public function getSalt()
