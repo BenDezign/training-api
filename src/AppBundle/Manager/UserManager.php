@@ -14,7 +14,6 @@ class UserManager
     /** @var UserPasswordEncoderInterface  */
     protected $userPasswordEncoder;
 
-
     public function __construct(EntityManager $entityManager, UserPasswordEncoderInterface $userPasswordEncoder)
     {
         $this->entityManager = $entityManager;

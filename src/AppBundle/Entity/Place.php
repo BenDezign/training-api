@@ -43,19 +43,39 @@ class Place
     private $comment;
 
     /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+    }
+
+    /**
      * @var float
      *
-     * @ORM\Column(name="latitude", type="float")
+     * @ORM\Column(type="decimal", precision=10, scale=8)
      */
     private $latitude;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="longitude", type="float")
+     * @ORM\Column(type="decimal", precision=10, scale=8)
      */
     private $longitude;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="places")
+     */
+    protected $user;
 
     /**
      * Get id

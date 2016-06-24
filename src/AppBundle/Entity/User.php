@@ -37,8 +37,15 @@ class User implements UserInterface, EncoderAwareInterface
      */
     private $password;
 
+    /**
+     * @var string
+     */
     protected $plainPassword;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Place", mappedBy="user")
+     */
+    protected $places;
     /**
      * Get id
      *
@@ -107,6 +114,7 @@ class User implements UserInterface, EncoderAwareInterface
 
     public function eraseCredentials()
     {
+        $this->plainPassword = null;
     }
 
     public function getEncoderName()
