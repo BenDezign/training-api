@@ -7,9 +7,7 @@ security:
 
     providers:
         user_provider:
-            entity:
-                class: AppBundle\Entity\User
-                property: username
+            id: app.user_provider
 
     firewalls:
         dev:
@@ -18,10 +16,24 @@ security:
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
 
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+#        oauth_authorize:
+#            pattern:    ^/oauth/v2/auth
+#            form_login:
+#                provider: user_provider
+#                check_path: /oauth/v2/auth_login_check
+#                login_path: /oauth/v2/auth_login
+#            anonymous: true
+
+        api:
+            pattern:    ^/api
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  false
+
+    access_control:
+      - { path: ^/api, roles: [ IS_AUTHENTICATED_FULLY ] }

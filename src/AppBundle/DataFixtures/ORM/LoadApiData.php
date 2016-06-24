@@ -51,5 +51,18 @@ class LoadApiData extends AbstractFixture implements FixtureInterface, Container
         }
 
         $manager->flush();
+
+        $clientManager = $this->container->get('fos_oauth_server.client_manager.default');
+        $client = $clientManager->createClient();
+        $client->setAllowedGrantTypes(['password', 'refresh_token']);
+        $clientManager->updateClient($client);
     }
 }
+
+
+http://127.0.0.1:4242/oauth/v2/token
+//?grant_type=password
+//&client_id=2_396l4l2okackc48w0go04o4cgc4w00g0sg4oc4kg0kws4kgckw
+//&client_secret=1hc96n9p1i9wocogkg80g4gsc000c0o0gcscc0c44wsoss4csk
+//&username=shinework
+//&password=test
