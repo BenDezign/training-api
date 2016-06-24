@@ -138,4 +138,20 @@ class User implements UserInterface, EncoderAwareInterface
     {
         $this->plainPassword = $plainPassword;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * @param mixed $places
+     */
+    public function setPlaces($places)
+    {
+        $this->places = $places;
+    }
 }
