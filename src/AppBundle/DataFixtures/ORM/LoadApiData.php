@@ -10,6 +10,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use AppBundle\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Faker\Factory;
 
 class LoadApiData extends AbstractFixture implements FixtureInterface, ContainerAwareInterface
 {
@@ -23,41 +24,31 @@ class LoadApiData extends AbstractFixture implements FixtureInterface, Container
 
     public function load(ObjectManager $manager)
     {
+
         $user = new User();
         $user->setUsername('shinework');
         $user->setPlainPassword('test');
         $this->container->get('app.user_manager')->updatePassword($user);
         $manager->persist($user);
 
-        $place = new Place();
-        $place->setName('MOSES');
-        $place->setAddress('144 Boulevard Voltaire, 75011 Paris');
-        $place->setComment('Super burger, j\'adore');
-        $place->setLatitude(48.856498);
-        $place->setLongitude(2.3819353);
-        $place->setUser($user);
+        $faker = Factory::create();
 
-        $media = new Media();
-        $media->setUrl('http://placehold.it/350x150');
-        $media->setPlace($place);
+        for ($i=0; $i <= 12; $i++) {
+            $place = new Place();
+            $place->setName($faker->name);
+            $place->setAddress($faker->address);
+            $place->setComment($faker->text(100));
+            $place->setLatitude($faker->latitude);
+            $place->setLongitude($faker->longitude);
+            $place->setUser($user);
 
-        $manager->persist($media);
-        $manager->persist($place);
+            $media = new Media();
+            $media->setUrl($faker->imageUrl());
+            $media->setPlace($place);
 
-        $place = new Place();
-        $place->setName('Le comptoir Parmentier');
-        $place->setAddress('6 Avenue Parmentier, 75011 Paris');
-        $place->setComment('Super tartare italien');
-        $place->setLatitude(48.8590405);
-        $place->setLongitude(2.3798429);
-        $place->setUser($user);
-
-        $media = new Media();
-        $media->setUrl('http://placehold.it/250x250');
-        $media->setPlace($place);
-
-        $manager->persist($media);
-        $manager->persist($place);
+            $manager->persist($media);
+            $manager->persist($place);
+        }
 
         $manager->flush();
     }
