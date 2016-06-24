@@ -28,6 +28,11 @@ class Media
      */
     private $url;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Place", inversedBy="medias")
+     * @ORM\JoinColumn(name="place_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    protected $place;
 
     /**
      * Get id
@@ -61,6 +66,22 @@ class Media
     public function getUrl()
     {
         return $this->url;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlace()
+    {
+        return $this->place;
+    }
+
+    /**
+     * @param mixed $place
+     */
+    public function setPlace($place)
+    {
+        $this->place = $place;
     }
 }
 

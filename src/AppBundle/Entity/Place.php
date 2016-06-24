@@ -43,20 +43,9 @@ class Place
     private $comment;
 
     /**
-     * @return mixed
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="place")
      */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
-    }
+    protected $medias;
 
     /**
      * @var float
@@ -74,6 +63,7 @@ class Place
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="places")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     protected $user;
 
@@ -85,6 +75,22 @@ class Place
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $user
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     /**

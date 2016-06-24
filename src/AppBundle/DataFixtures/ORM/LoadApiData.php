@@ -2,6 +2,7 @@
 
 namespace AppBundle\DataFixtures\ORM;
 
+use AppBundle\Entity\Media;
 use AppBundle\Entity\Place;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
@@ -36,6 +37,11 @@ class LoadApiData extends AbstractFixture implements FixtureInterface, Container
         $place->setLongitude(2.3819353);
         $place->setUser($user);
 
+        $media = new Media();
+        $media->setUrl('http://placehold.it/350x150');
+        $media->setPlace($place);
+
+        $manager->persist($media);
         $manager->persist($place);
 
         $place = new Place();
@@ -45,7 +51,12 @@ class LoadApiData extends AbstractFixture implements FixtureInterface, Container
         $place->setLatitude(48.8590405);
         $place->setLongitude(2.3798429);
         $place->setUser($user);
-        
+
+        $media = new Media();
+        $media->setUrl('http://placehold.it/250x250');
+        $media->setPlace($place);
+
+        $manager->persist($media);
         $manager->persist($place);
 
         $manager->flush();

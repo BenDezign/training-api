@@ -46,6 +46,7 @@ class User implements UserInterface, EncoderAwareInterface
      * @ORM\OneToMany(targetEntity="Place", mappedBy="user")
      */
     protected $places;
+
     /**
      * Get id
      *
